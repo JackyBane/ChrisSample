@@ -12,3 +12,4 @@
   butterknife
   eventbus
   litepal
+  retrofit
