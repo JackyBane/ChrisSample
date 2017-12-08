@@ -41,7 +41,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Inject
     Test1 test1;
 
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
