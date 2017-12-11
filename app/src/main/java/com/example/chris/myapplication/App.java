@@ -7,6 +7,8 @@ import com.example.chris.myapplication.dragger2.component.DaggerAppComponent;
 import com.example.chris.myapplication.dragger2.module.AppModule;
 import com.example.chris.myapplication.utils.ToastUtils;
 
+import javax.inject.Scope;
+
 /**
  * 类描述：
  * 创建人 Chris
@@ -18,6 +20,7 @@ public class App extends Application {
     private AppComponent appComponent;
 
     private static App app;
+
 
     @Override
     public void onCreate() {
@@ -37,6 +40,7 @@ public class App extends Application {
     private void initApplication() {
         appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
     }
+
 
     public AppComponent getAppComponent() {
         return appComponent ;

@@ -6,10 +6,15 @@
 用到的框架和技术
   Rxjava
   Dagger2
-  Xrecycleview
-  fastjson
+  BaseRecyclerviewHolder
+  Gson
   bugly
   butterknife
-  eventbus
+  eventbus3
   litepal
-  retrofit
+  retrofit
+  Glide
+  RxPermissions
+
+  Lrucache
+  DiskLruCache

@@ -2,6 +2,7 @@ package com.example.chris.myapplication.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -20,6 +21,7 @@ import com.example.chris.myapplication.dragger2.component.ActivityComponent;
 import com.example.chris.myapplication.dragger2.component.DaggerActivityComponent;
 import com.example.chris.myapplication.dragger2.module.ActivityModule;
 import com.example.mylibrary.utils.Logger;
+import com.example.mylibrary.utils.StatusBarUtil;
 
 import javax.inject.Inject;
 
@@ -44,12 +46,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //定义全屏参数
-        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        //获得当前窗体对象
-        Window window = this.getWindow();
-        //设置当前窗体为全屏显示
-        window.setFlags(flag, flag);
+//        //定义全屏参数
+//        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+//        //获得当前窗体对象
+//        Window window = this.getWindow();
+//        //设置当前窗体为全屏显示
+//        window.setFlags(flag, flag);
+
 
         activityComponent = DaggerActivityComponent
                 .builder()
@@ -59,6 +62,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // 初始化ui
         setContentView(initUI());
+        StatusBarUtil.setColor(this, Color.RED);
+
         ButterKnife.bind(this);
 
         test1.say();
@@ -71,7 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.unbind(this);
     }
 
-    public ActivityComponent getActivityComponent() {
+    protected ActivityComponent getActivityComponent() {
         return activityComponent;
     }
 

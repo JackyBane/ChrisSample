@@ -1,21 +1,22 @@
 package com.example.chris.myapplication.ui.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.widget.Button;
-import android.widget.TextView;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chris.myapplication.R;
-import com.example.chris.myapplication.commom.Test;
-import com.example.chris.myapplication.commom.Test1;
+import com.example.chris.myapplication.adapter.CourseListAdapter;
 import com.example.chris.myapplication.dragger2.component.DaggerMainActivityComponent;
+import com.example.chris.myapplication.entity.CourseInfo;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * 类描述：
@@ -25,17 +26,14 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
+    @Bind(R.id.rv)
+    RecyclerView rv;
+    @Bind(R.id.srl)
+    SwipeRefreshLayout srl;
 
-    @Bind(R.id.tv_poetry)
-    TextView tvPoetry;
-    @Bind(R.id.btn)
-    Button btn;
 
-    @Inject
-    Activity activity;
-
-    @Inject
-    Test test;
+    private List<CourseInfo> list = new ArrayList<>();
+    private CourseListAdapter courseListAdapter;
 
 
     @Override
@@ -46,17 +44,35 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
         DaggerMainActivityComponent.builder().activityComponent(getActivityComponent()).build().inject(this);
+        for (int i = 0; i < 10; i++) {
+            CourseInfo courseInfo = new CourseInfo();
+            courseInfo.courseName = "本地教学";
+            courseInfo.courseTime = "11:11";
+            list.add(courseInfo);
+        }
+
+        //设置布局管理器
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        courseListAdapter = new CourseListAdapter(R.layout.item_course, list);
+
+        srl.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                srl.setRefreshing(false);
+            }
+        },3000);
+        srl.setRefreshing(true);
+        rv.setAdapter(courseListAdapter);
     }
 
     @Override
     protected void initListener() {
-
+        courseListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                openActivity(OneActivity.class);
+            }
+        });
     }
 
-
-
-    @OnClick(R.id.btn)
-    public void onViewClicked() {
-        openActivity(OneActivity.class);
-    }
 }

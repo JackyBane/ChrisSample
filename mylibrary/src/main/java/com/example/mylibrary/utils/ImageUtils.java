@@ -35,7 +35,8 @@ import android.support.annotation.IntRange;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
-import com.blankj.utilcode.constant.MemoryConstants;
+
+import com.example.mylibrary.constant.MemoryConstants;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
