@@ -6,8 +6,10 @@ import com.example.chris.myapplication.dragger2.component.AppComponent;
 import com.example.chris.myapplication.dragger2.component.DaggerAppComponent;
 import com.example.chris.myapplication.dragger2.module.AppModule;
 import com.example.chris.myapplication.utils.ToastUtils;
+import com.example.mylibrary.utils.Utils;
 
-import javax.inject.Scope;
+import org.litepal.LitePalApplication;
+
 
 /**
  * 类描述：
@@ -31,7 +33,10 @@ public class App extends Application {
     }
 
     private void init() {
+        Utils.init(this);
         ToastUtils.init(this);
+        //LitePal初始化
+        LitePalApplication.initialize(this);
         //异步初始化配置Service，便于加快启动速度
 //        InitConfigService.start(this);
 

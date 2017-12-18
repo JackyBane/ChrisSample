@@ -1,6 +1,8 @@
 package com.example.chris.myapplication.utils;
 
+import android.annotation.StringRes;
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.widget.Toast;
 
 /**
@@ -43,7 +45,7 @@ public class ToastUtils {
         }
     }
 
-    public static void showToast(int resId) {
+    public static void showToast(@StringRes int resId) {
         showToast(sContext.getString(resId));
     }
 }

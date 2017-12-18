@@ -1,6 +1,7 @@
 package com.example.chris.myapplication.commom;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.widget.Toast;
 
 import javax.inject.Inject;
@@ -19,12 +20,20 @@ public class Test {
 
     public Test() {
         name="chris is me";
+    }
 
+
+    public void setName( String name) {
+        this.name=name;
     }
 
     public String getName() {
         return name;
     }
+
+
+
+
 
 
 }

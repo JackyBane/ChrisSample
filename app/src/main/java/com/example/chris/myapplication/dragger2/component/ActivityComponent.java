@@ -4,8 +4,7 @@ import android.app.Activity;
 
 import com.example.chris.myapplication.commom.Test1;
 import com.example.chris.myapplication.dragger2.module.ActivityModule;
-import com.example.chris.myapplication.dragger2.scopes.PerActivity;
-import com.example.chris.myapplication.ui.activity.BaseActivity;
+import com.example.chris.myapplication.ui.base.BaseActivity;
 
 import dagger.Component;
 

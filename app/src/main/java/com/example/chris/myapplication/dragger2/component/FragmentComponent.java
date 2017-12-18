@@ -1,8 +1,7 @@
 package com.example.chris.myapplication.dragger2.component;
 
 import com.example.chris.myapplication.dragger2.module.FragmentModule;
-import com.example.chris.myapplication.dragger2.scopes.PerActivity;
-import com.example.chris.myapplication.ui.fragment.BaseFragment;
+import com.example.chris.myapplication.ui.base.BaseFragment;
 
 import dagger.Component;
 

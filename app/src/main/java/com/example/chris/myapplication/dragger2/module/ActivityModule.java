@@ -2,10 +2,7 @@ package com.example.chris.myapplication.dragger2.module;
 
 import android.app.Activity;
 
-import com.example.chris.myapplication.commom.Test;
 import com.example.chris.myapplication.commom.Test1;
-import com.example.chris.myapplication.dragger2.scopes.PerActivity;
-import com.example.chris.myapplication.ui.activity.BaseActivity;
 
 import dagger.Module;
 import dagger.Provides;
