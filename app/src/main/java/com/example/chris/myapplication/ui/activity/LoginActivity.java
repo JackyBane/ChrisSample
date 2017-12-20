@@ -1,11 +1,14 @@
 package com.example.chris.myapplication.ui.activity;
 
+import android.util.Log;
+
 import com.example.chris.myapplication.R;
 import com.example.chris.myapplication.presenter.activity.LoginActivityPresenter;
 import com.example.chris.myapplication.ui.base.BaseActivity;
 import com.example.chris.myapplication.utils.ToastUtils;
 
-import javax.inject.Inject;
+import rx.Observable;
+
 
 /**
  * 类描述：
@@ -24,6 +27,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        ToastUtils.showToast(loginActivityPresenter.hashCode());
+        Log.e(TAG, "initData: "+"hhhhhhhhhhh" );
     }
 }

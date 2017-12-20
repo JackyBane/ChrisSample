@@ -7,6 +7,7 @@ import com.example.chris.myapplication.api.base.persistentcookiejar.cache.SetCoo
 import com.example.chris.myapplication.api.base.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.example.mylibrary.utils.LogUtils;
 import com.example.mylibrary.utils.NetworkUtils;
+import com.example.mylibrary.utils.Utils;
 
 
 import java.io.File;
@@ -42,13 +43,13 @@ public class BaseApiRetrofit {
 //        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);//这里可以选择拦截级别
 
         //cache
-        File httpCacheDir = new File(App.getApp().getCacheDir(), "response");
+        File httpCacheDir = new File(Utils.getApp().getCacheDir(), "response");
         int cacheSize = 10 * 1024 * 1024;// 10 MiB
         Cache cache = new Cache(httpCacheDir, cacheSize);
 
         //cookie
         ClearableCookieJar cookieJar =
-                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(App.getApp()));
+                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(Utils.getApp()));
 
         //OkHttpClient
         mClient = new OkHttpClient.Builder()

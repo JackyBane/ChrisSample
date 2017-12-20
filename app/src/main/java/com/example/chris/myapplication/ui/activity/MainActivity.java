@@ -1,30 +1,20 @@
 package com.example.chris.myapplication.ui.activity;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chris.myapplication.R;
-import com.example.chris.myapplication.adapter.CourseListAdapter;
-import com.example.chris.myapplication.api.ApiRetrofit;
-import com.example.chris.myapplication.api.model.response.BaseResponse;
-import com.example.chris.myapplication.api.model.response.CardRe;
-import com.example.chris.myapplication.entity.CourseInfo;
+import com.example.chris.myapplication.api.model.CardRe;
 import com.example.chris.myapplication.presenter.activity.MainAcitivityPresenter;
 import com.example.chris.myapplication.ui.base.BaseActivity;
 import com.example.chris.myapplication.utils.ToastUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
+import com.example.mylibrary.utils.ActivityUtils;
+import com.example.mylibrary.utils.Utils;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * 类描述：
@@ -34,7 +24,7 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
 
-    private MainAcitivityPresenter mainActivityPresenter=new MainAcitivityPresenter(this);
+    private MainAcitivityPresenter mainActivityPresenter = new MainAcitivityPresenter(this);
 
     @Bind(R.id.tv_content)
     TextView tvContent;
@@ -51,12 +41,31 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void success(Object o) {
-        tvContent.setText(((CardRe)o)._$2);
+        tvContent.setText(((CardRe) o)._$2);
     }
 
     public void show() {
         ToastUtils.showToast("---------------------------------------------");
     }
 
+    /*****************
+     * 双击退出程序
+     ************************************************/
+    private long exitTime = 0;
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (KeyEvent.KEYCODE_BACK == keyCode) {
+            // 判断是否在两秒之内连续点击返回键，是则退出，否则不退出
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                ToastUtils.showToast("再按一次退出程序");
+                // 将系统当前的时间赋值给exitTime
+                exitTime = System.currentTimeMillis();
+            } else {
+                ActivityUtils.finishAllActivities();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

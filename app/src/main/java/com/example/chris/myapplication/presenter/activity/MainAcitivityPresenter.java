@@ -1,10 +1,15 @@
 package com.example.chris.myapplication.presenter.activity;
 
-import com.example.chris.myapplication.api.model.response.BaseResponse;
-import com.example.chris.myapplication.ui.IView;
+import com.example.chris.myapplication.api.model.BaseResponse;
+import com.example.chris.myapplication.api.model.CardRe;
 import com.example.chris.myapplication.ui.activity.MainActivity;
 
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -26,9 +31,6 @@ public class MainAcitivityPresenter extends BasePresenter<MainActivity>{
 
 
     public void getData(String key) {
-        mApi.getCard(key)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new MySubscriber());
+        handleData(mApi.getCard(key));
     }
 }

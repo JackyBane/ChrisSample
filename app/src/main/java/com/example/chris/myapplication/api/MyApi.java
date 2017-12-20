@@ -1,14 +1,10 @@
 package com.example.chris.myapplication.api;
 
 
-import com.example.chris.myapplication.api.model.response.BaseResponse;
-import com.example.chris.myapplication.api.model.response.CardRe;
-import com.example.chris.myapplication.api.model.response.LoginResponse;
+import com.example.chris.myapplication.api.model.BaseResponse;
+import com.example.chris.myapplication.api.model.CardRe;
 
-import okhttp3.RequestBody;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 

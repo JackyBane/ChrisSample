@@ -2,8 +2,10 @@ package com.example.chris.myapplication.ui.base;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,8 +19,12 @@ import com.example.chris.myapplication.R;
 import com.example.chris.myapplication.ui.IView;
 import com.example.chris.myapplication.utils.ToastUtils;
 import com.example.mylibrary.utils.Logger;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 
 
 /**
@@ -26,32 +32,33 @@ import butterknife.ButterKnife;
  * 创建人：Chris
  * 创建时间：2017/3/7 17:25
  */
-public abstract class BaseActivity extends AppCompatActivity implements IView{
+public abstract class BaseActivity extends AppCompatActivity implements IView {
 
     protected String TAG = this.getClass().getSimpleName();
 
     protected Logger logger = Logger.getLogger();
 
+    RxPermissions rxPermissions;
 
-//    @Bind(R.id.toolbar)
+
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         init();
 
         //子类不再需要设置布局ID，也不再需要使用ButterKnife.bind()
         setContentView(provideContentViewId());
         ButterKnife.bind(this);
 
-//        initToolbar();
+        initToolbar();
 
         //沉浸式状态栏
 //        StatusBarUtil.setColor(this, UIUtils.getColor(R.color.colorPrimaryDark), 10);
-
+        rxPermissions = new RxPermissions(this);
         initView();
         initData();
         initListener();
@@ -60,6 +67,12 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
     private void initToolbar() {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.ic_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     protected void setToolbarVisible(int visibility) {
@@ -72,7 +85,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
         ButterKnife.unbind(this);
 
     }
-
 
 
     //在setContentView()调用之前调用，可以设置WindowFeature(如：this.requestWindowFeature(Window.FEATURE_NO_TITLE);)
@@ -98,7 +110,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
     public void failed(String msg) {
         ToastUtils.showToast(msg);
     }
-
 
 
     //得到当前界面的布局文件id(由子类实现)
@@ -218,6 +229,40 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 权限申请
+     * @param permissions       需要的权限数组
+     */
+    public void requestPermissions(String... permissions) {
+        // 版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            rxPermissions.request(permissions)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<Boolean>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(Boolean aBoolean) {
+                            if (aBoolean) {
+                                ToastUtils.showToast("已获取权限，可以干想干的咯");
+                            } else {
+                                //只有用户拒绝开启权限，且选了不再提示时，才会走这里，否则会一直请求开启
+                                // Toast.makeText(mContext, "主人，我被禁止啦，去设置权限设置那把我打开哟", Toast.LENGTH_LONG).show();}
+                            }
+                        }
+                    });
+        }
+
     }
 
 

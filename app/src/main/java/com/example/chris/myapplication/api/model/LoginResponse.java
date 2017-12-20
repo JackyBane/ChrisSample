@@ -1,4 +1,4 @@
-package com.example.chris.myapplication.api.model.response;
+package com.example.chris.myapplication.api.model;
 
 /**
  * 类描述：

@@ -1,7 +1,6 @@
 package com.example.chris.myapplication.presenter.activity;
 
-import com.example.chris.myapplication.api.model.response.BaseResponse;
-import com.example.chris.myapplication.ui.IView;
+import com.example.chris.myapplication.api.model.BaseResponse;
 import com.example.chris.myapplication.ui.activity.LoginActivity;
 
 /**

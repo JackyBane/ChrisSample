@@ -1,7 +1,11 @@
 package com.example.chris.myapplication;
 
+import android.app.Activity;
 import android.app.Application;
+import android.os.Bundle;
+import android.util.Log;
 
+import com.example.chris.myapplication.commom.ActivityLifecycleCallbacksImp;
 import com.example.chris.myapplication.utils.ToastUtils;
 import com.example.mylibrary.utils.Utils;
 
@@ -16,18 +20,14 @@ import org.litepal.LitePalApplication;
 
 public class App extends Application {
 
-
-    private static App app;
-
-
     @Override
     public void onCreate() {
         super.onCreate();
-        app=this;
         init();
     }
 
     private void init() {
+        //初始化工具类，可以用这个返回application实例和记录Activiyt开启的个数，便于一键退出
         Utils.init(this);
         ToastUtils.init(this);
 //        AutoLayoutConifg.getInstance().useDeviceSize();
@@ -38,8 +38,4 @@ public class App extends Application {
 
     }
 
-
-    public static App getApp() {
-        return app;
-    }
 }

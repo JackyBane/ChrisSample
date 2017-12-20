@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.chris.myapplication.api.MyApi;
 import com.example.chris.myapplication.api.base.BaseApiRetrofit;
-import com.example.chris.myapplication.api.model.response.BaseResponse;
+import com.example.chris.myapplication.api.model.BaseResponse;
 import com.example.chris.myapplication.ui.IView;
 import com.example.mylibrary.utils.Logger;
 import com.google.gson.Gson;
@@ -13,10 +13,16 @@ import com.google.gson.GsonBuilder;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
- * 业务层公共部分代码封装
+ * 类描述：业务层公共部分代码封装
+ * 创建人 Chris
+ * 创建时间：2017/12/7 17:22
  */
 
 public abstract class BasePresenter<T extends IView> {
@@ -26,7 +32,7 @@ public abstract class BasePresenter<T extends IView> {
 
     protected T view;
 
-    protected static MyApi mApi;
+    protected MyApi mApi;
 
     public BasePresenter() {
 
@@ -52,7 +58,7 @@ public abstract class BasePresenter<T extends IView> {
 
         @Override
         public void onCompleted() {
-
+            Log.e(TAG, "onCompleted: "+"------" );
         }
 
         @Override
@@ -68,6 +74,13 @@ public abstract class BasePresenter<T extends IView> {
                 failed(data.reason);
             }
         }
+    }
+
+    //处理数据，单个网络请求，多个连续的网络请求请自行处理
+    public void handleData(Observable observable) {
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MySubscriber());
     }
 
 

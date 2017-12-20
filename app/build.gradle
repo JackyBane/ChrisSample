@@ -33,11 +33,11 @@ dependencies {
     compile project(':mylibrary')
 
     //dragger2
-    apt 'com.google.dagger:dagger-compiler:2.0'
-    compile 'com.google.dagger:dagger:2.0'
-    compile 'org.glassfish:javax.annotation:10.0-b28'
+//    apt 'com.google.dagger:dagger-compiler:2.0'
+//    compile 'com.google.dagger:dagger:2.0'
+//    compile 'org.glassfish:javax.annotation:10.0-b28'
 
-    compile 'com.zhy:autolayout:1.4.5'
+//    compile 'com.zhy:autolayout:1.4.5'
 
 //    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.3'
 //    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.3'
