@@ -2,9 +2,6 @@ package com.example.chris.myapplication;
 
 import android.app.Application;
 
-import com.example.chris.myapplication.dragger2.component.AppComponent;
-import com.example.chris.myapplication.dragger2.component.DaggerAppComponent;
-import com.example.chris.myapplication.dragger2.module.AppModule;
 import com.example.chris.myapplication.utils.ToastUtils;
 import com.example.mylibrary.utils.Utils;
 
@@ -19,7 +16,6 @@ import org.litepal.LitePalApplication;
 
 public class App extends Application {
 
-    private AppComponent appComponent;
 
     private static App app;
 
@@ -28,13 +24,13 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         app=this;
-        initApplication();
         init();
     }
 
     private void init() {
         Utils.init(this);
         ToastUtils.init(this);
+//        AutoLayoutConifg.getInstance().useDeviceSize();
         //LitePal初始化
         LitePalApplication.initialize(this);
         //异步初始化配置Service，便于加快启动速度
@@ -42,14 +38,6 @@ public class App extends Application {
 
     }
 
-    private void initApplication() {
-        appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
-    }
-
-
-    public AppComponent getAppComponent() {
-        return appComponent ;
-    }
 
     public static App getApp() {
         return app;

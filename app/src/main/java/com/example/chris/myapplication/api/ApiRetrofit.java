@@ -1,12 +1,10 @@
 package com.example.chris.myapplication.api;
 
 import com.example.chris.myapplication.api.base.BaseApiRetrofit;
-import com.example.chris.myapplication.api.model.request.LoginRequest;
 import com.example.chris.myapplication.api.model.response.BaseResponse;
-import com.example.chris.myapplication.api.model.response.LoginResponse;
+import com.example.chris.myapplication.api.model.response.CardRe;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
@@ -56,15 +54,19 @@ public class ApiRetrofit extends BaseApiRetrofit {
         return body;
     }
 
-    //登录
-    public Observable<BaseResponse<LoginResponse>> login(String phone, String password) {
-        return mApi.login(getRequestBody(new LoginRequest(phone, password)));
-    }
 
-//    //注册
-//    public Observable<CheckPhoneResponse> checkPhoneAvailable(String region, String phone) {
-//        return mApi.checkPhoneAvailable(getRequestBody(new CheckPhoneRequest(phone, region)));
+
+    //================================接口配置============================================================
+
+
+//    //登录
+//    public Observable<BaseResponse<LoginResponse>> login(String phone, String password) {
+//        return mApi.login(getRequestBody(new LoginRequest(phone, password)));
 //    }
+
+    public Observable<BaseResponse<CardRe>> getCard(String key) {
+        return mApi.getCard(key);
+    }
 
 
 

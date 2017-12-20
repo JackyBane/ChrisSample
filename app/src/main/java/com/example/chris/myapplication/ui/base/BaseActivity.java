@@ -2,26 +2,22 @@ package com.example.chris.myapplication.ui.base;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.example.chris.myapplication.R;
+import com.example.chris.myapplication.ui.IView;
+import com.example.chris.myapplication.utils.ToastUtils;
 import com.example.mylibrary.utils.Logger;
-import com.zhy.autolayout.AutoFrameLayout;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
@@ -30,18 +26,16 @@ import butterknife.ButterKnife;
  * 创建人：Chris
  * 创建时间：2017/3/7 17:25
  */
-public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements IView{
 
     protected String TAG = this.getClass().getSimpleName();
 
     protected Logger logger = Logger.getLogger();
 
-    protected T mPresenter;
 
-    @Bind(R.id.toolbar)
+//    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.fl_main_content)
-    AutoFrameLayout flMainContent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,21 +43,11 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
 
         init();
 
-        //判断是否使用MVP模式
-        mPresenter = createPresenter();
-        if (mPresenter != null) {
-            mPresenter.attachView((V) this);//因为之后所有的子类都要实现对应的View接口
-        }
-
-
         //子类不再需要设置布局ID，也不再需要使用ButterKnife.bind()
-        setContentView(R.layout.activity_base);
+        setContentView(provideContentViewId());
         ButterKnife.bind(this);
 
-        View content_view=LayoutInflater.from(this).inflate(provideContentViewId(),null);
-        flMainContent.addView(content_view);
-
-        initToolbar();
+//        initToolbar();
 
         //沉浸式状态栏
 //        StatusBarUtil.setColor(this, UIUtils.getColor(R.color.colorPrimaryDark), 10);
@@ -86,15 +70,14 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
-        if (mPresenter != null) {
-            mPresenter.detachView();
-        }
+
     }
 
 
 
     //在setContentView()调用之前调用，可以设置WindowFeature(如：this.requestWindowFeature(Window.FEATURE_NO_TITLE);)
     public void init() {
+
     }
 
     public void initView() {
@@ -106,8 +89,17 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     public void initListener() {
     }
 
-    //用于创建Presenter和判断是否使用MVP模式(由子类实现)
-    protected abstract T createPresenter();
+    @Override
+    public void success(Object o) {
+
+    }
+
+    @Override
+    public void failed(String msg) {
+        ToastUtils.showToast(msg);
+    }
+
+
 
     //得到当前界面的布局文件id(由子类实现)
     protected abstract int provideContentViewId();

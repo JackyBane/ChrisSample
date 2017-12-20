@@ -10,21 +10,21 @@ import java.io.Serializable;
 
 public class BaseResponse<T> implements Serializable {
     @SerializedName("code")
-    public int code;
+    public int error_code;
     @SerializedName("msg")
-    public String msg;
+    public String reason;
     @SerializedName("data")
-    public T data;
+    public T result;
 
     public int getCode() {
-        return code;
+        return error_code;
     }
 
     public String getMsg() {
-        return msg;
+        return reason;
     }
 
     public T getData() {
-        return data;
+        return result;
     }
 }

@@ -1,24 +1,16 @@
 package com.example.chris.myapplication.ui.base;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.chris.myapplication.dragger2.component.DaggerFragmentComponent;
-import com.example.chris.myapplication.dragger2.module.FragmentModule;
 import com.example.mylibrary.utils.Logger;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
@@ -27,26 +19,11 @@ import butterknife.ButterKnife;
  * 创建人：Chris
  * 创建时间：2017/3/7 17:37
  */
-public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     protected String TAG = this.getClass().getSimpleName();
 
     protected Logger logger= Logger.getLogger();
-
-    protected T mPresenter;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        init();
-
-        //判断是否使用MVP模式
-        mPresenter = createPresenter();
-        if (mPresenter != null) {
-            mPresenter.attachView((V) this);//因为之后所有的子类都要实现对应的View接口
-        }
-    }
 
     @Nullable
     @Override
@@ -54,7 +31,6 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         //子类不再需要设置布局ID，也不再需要使用ButterKnife.bind()
         View rootView = inflater.inflate(provideContentViewId(), container, false);
         ButterKnife.bind(this, rootView);
-        initView(rootView);
         return rootView;
     }
 
@@ -68,17 +44,9 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.detachView();
-        }
+        ButterKnife.unbind(this);
     }
 
-    public void init() {
-
-    }
-
-    public void initView(View rootView) {
-    }
 
     public void initData() {
 
@@ -88,8 +56,6 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
 
     }
 
-    //用于创建Presenter和判断是否使用MVP模式(由子类实现)
-    protected abstract T createPresenter();
 
     //得到当前界面的布局文件id(由子类实现)
     protected abstract int provideContentViewId();
