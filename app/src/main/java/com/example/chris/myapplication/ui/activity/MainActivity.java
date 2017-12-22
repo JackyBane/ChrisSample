@@ -13,8 +13,18 @@ import com.example.chris.myapplication.ui.base.BaseActivity;
 import com.example.chris.myapplication.utils.ToastUtils;
 import com.example.mylibrary.utils.ActivityUtils;
 import com.example.mylibrary.utils.Utils;
+import com.trello.rxlifecycle.ActivityEvent;
+
+import org.litepal.util.LogUtil;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.functions.Action0;
+import rx.functions.Action1;
 
 /**
  * 类描述：
@@ -23,6 +33,7 @@ import butterknife.Bind;
  */
 
 public class MainActivity extends BaseActivity {
+
 
     private MainAcitivityPresenter mainActivityPresenter = new MainAcitivityPresenter(this);
 

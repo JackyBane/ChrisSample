@@ -20,6 +20,7 @@ import com.example.chris.myapplication.ui.IView;
 import com.example.chris.myapplication.utils.ToastUtils;
 import com.example.mylibrary.utils.Logger;
 import com.tbruyelle.rxpermissions.RxPermissions;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,7 +33,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * 创建人：Chris
  * 创建时间：2017/3/7 17:25
  */
-public abstract class BaseActivity extends AppCompatActivity implements IView {
+public abstract class BaseActivity extends RxAppCompatActivity implements IView {
 
     protected String TAG = this.getClass().getSimpleName();
 

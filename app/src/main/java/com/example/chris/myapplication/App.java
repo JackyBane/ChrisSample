@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.chris.myapplication.commom.ActivityLifecycleCallbacksImp;
 import com.example.chris.myapplication.utils.ToastUtils;
 import com.example.mylibrary.utils.Utils;
+import com.squareup.leakcanary.LeakCanary;
 
 import org.litepal.LitePalApplication;
 
@@ -27,6 +28,11 @@ public class App extends Application {
     }
 
     private void init() {
+        //LeackCanary初始化，用来检测内存泄漏
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
         //初始化工具类，可以用这个返回application实例和记录Activiyt开启的个数，便于一键退出
         Utils.init(this);
         ToastUtils.init(this);

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mylibrary.utils.Logger;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 import butterknife.ButterKnife;
 
@@ -19,7 +20,7 @@ import butterknife.ButterKnife;
  * 创建人：Chris
  * 创建时间：2017/3/7 17:37
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends RxFragment {
 
     protected String TAG = this.getClass().getSimpleName();
 

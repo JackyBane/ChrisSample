@@ -29,8 +29,8 @@ public class MainAcitivityPresenter extends BasePresenter<MainActivity>{
         view.success(data.getData());
     }
 
-
     public void getData(String key) {
         handleData(mApi.getCard(key));
     }
+
 }

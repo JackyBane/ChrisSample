@@ -44,4 +44,7 @@ dependencies {
 //    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.3'
 //    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.3'
 
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
 }
