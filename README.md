@@ -15,6 +15,7 @@
   retrofit
   Glide
   RxPermissions
+  RxLifeCycle
 
   Lrucache
   DiskLruCache
