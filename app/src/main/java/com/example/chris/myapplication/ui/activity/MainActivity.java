@@ -1,10 +1,8 @@
 package com.example.chris.myapplication.ui.activity;
 
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.chris.myapplication.R;
 import com.example.chris.myapplication.api.model.CardRe;
@@ -12,19 +10,8 @@ import com.example.chris.myapplication.presenter.activity.MainAcitivityPresenter
 import com.example.chris.myapplication.ui.base.BaseActivity;
 import com.example.chris.myapplication.utils.ToastUtils;
 import com.example.mylibrary.utils.ActivityUtils;
-import com.example.mylibrary.utils.Utils;
-import com.trello.rxlifecycle.ActivityEvent;
 
-import org.litepal.util.LogUtil;
-
-import java.util.concurrent.TimeUnit;
-
-import butterknife.Bind;
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.functions.Action0;
-import rx.functions.Action1;
+import butterknife.BindView;
 
 /**
  * 类描述：
@@ -37,7 +24,7 @@ public class MainActivity extends BaseActivity {
 
     private MainAcitivityPresenter mainActivityPresenter = new MainAcitivityPresenter(this);
 
-    @Bind(R.id.tv_content)
+    @BindView(R.id.tv_content)
     TextView tvContent;
 
     @Override

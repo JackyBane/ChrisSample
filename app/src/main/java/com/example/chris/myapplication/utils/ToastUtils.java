@@ -1,8 +1,8 @@
 package com.example.chris.myapplication.utils;
 
-import android.annotation.StringRes;
 import android.content.Context;
 import android.support.annotation.IdRes;
+import android.support.annotation.StringRes;
 import android.widget.Toast;
 
 /**

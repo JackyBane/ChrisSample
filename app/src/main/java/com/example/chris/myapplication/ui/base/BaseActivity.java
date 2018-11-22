@@ -22,7 +22,7 @@ import com.example.mylibrary.utils.Logger;
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -41,10 +41,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IView 
 
     RxPermissions rxPermissions;
 
-
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +81,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IView 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
 
     }
 
