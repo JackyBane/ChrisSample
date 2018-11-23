@@ -48,7 +48,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IView 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
-
         //子类不再需要设置布局ID，也不再需要使用ButterKnife.bind()
         setContentView(provideContentViewId());
         ButterKnife.bind(this);
